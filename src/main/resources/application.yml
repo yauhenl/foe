@@ -14,9 +14,9 @@ game:
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
-    user_key: H1_awRQ4Ilpb8kZQYAxLy9OB
+    user_key: 'test'
     # This is the value of 'sid' inside the cookie of each request
-    sid: BXNfUvRnFldzG81CzUwxvfJ8SJ4cKehJ_Los9MEY
+    sid: 'test'
 settings:
     # How often the bot should do a full update
     update:
