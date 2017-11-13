@@ -3,11 +3,11 @@
 <div class="container">
     <table class="table">
         <thead>
-            <tr>
-                <th>Clan</th>
-                <th>User Name</th>
-                <th>Era</th>
-            </tr>
+        <tr>
+            <th>Clan</th>
+            <th>User Name</th>
+            <th>Era</th>
+        </tr>
         </thead>
         <tr>
             <td>${data.user_data.clan_name}</td>
@@ -26,8 +26,23 @@
         <#list data.taverns as tavern>
         <tr>
             <td>${tavern.ownerId}</td>
-            <td>${tavern.state}</td>
+            <td>${(tavern.state)!}</td>
         </tr>
+        </#list>
+    </table>
+    <br/>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <#list data.resources as key, value>
+            <tr>
+                <td>${key}</td>
+                <td>${value}</td>
+            </tr>
         </#list>
     </table>
 </div>

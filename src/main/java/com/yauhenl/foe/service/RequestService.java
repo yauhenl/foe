@@ -58,6 +58,10 @@ public class RequestService {
 //        return Any()
 //    }
 
+    public Object findByRequestMethod(List<Document> data, String mathodName) {
+        return data.stream().filter(it -> mathodName.equals(it.getString("requestMethod"))).findAny().map(it -> it.get("responseData")).orElse(null);
+    }
+
     public List<Document> postRequest(JSONArray payload, String sid, String userKey) {
         String url = format("https://%s.forgeofempires.com/game/json?h=%s", server, userKey);
         payload.getJSONObject(0).put("requestId", requestId++);

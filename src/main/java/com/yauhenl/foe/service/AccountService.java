@@ -14,13 +14,13 @@ public class AccountService {
     @Autowired
     private RequestService requestService;
 
-    public List<Document> getData(String sid, String userKey) {
+    public Document getData(String sid, String userKey) {
         JSONArray payload = getPayload("getData", new String[]{}, "StartupService");
         List<Document> data = requestService.postRequest(payload, sid, userKey);
-//        val result = requestService.method(data, "getData") as HashMap<String, Any>
-//                result.put("taverns", requestService.method(data, "getOtherTavernStates"))
-//        result.put("resources", requestService.method(data, "getPlayerResources"))
-        return data;
+        Document result = (Document) requestService.findByRequestMethod(data, "getData");
+        result.put("resources", ((Document) requestService.findByRequestMethod(data, "getPlayerResources")).get("resources"));
+        result.put("taverns", requestService.findByRequestMethod(data, "getOtherTavernStates"));
+        return result;
     }
 
     private JSONArray getPayload(String method, String[] data, String klass) {
