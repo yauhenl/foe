@@ -13,6 +13,6 @@ repositories {
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-freemarker'
-    compile "org.mongodb:mongo-java-driver:3.5.0"
+    compile 'org.mongodb:bson:3.5.0'
     compile 'com.github.jkcclemens:khttp:0.1.0'
 }

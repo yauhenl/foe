@@ -7,12 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.URISyntax;
 import javax.xml.bind.DatatypeConverter;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,23 +39,12 @@ public class RequestService {
 
     private Integer requestId = rnd.nextInt(255);
 
-//    fun service(data: JSONArray, service: String): Any {
-//        (0..(data.length() - 1))
-//                .map { data.getJSONObject(it) }
-//                .filter { it.getString("requestClass") == service }
-//                .first { return it.get("responseData") }
-//        return Any()
-//    }
-//
-//    fun method(data: List<Map<String, Any>>, method: String): Any? {
-//        data
-//                .filter { it["requestMethod"] == method }
-//                .first { return it["responseData"] }
-//        return Any()
-//    }
+    public Document findByRequestMethod(List<Document> data, String mathodName) {
+        return data.stream().filter(it -> mathodName.equals(it.getString("requestMethod"))).findAny().map(it -> it.get("responseData", Document.class)).orElse(null);
+    }
 
-    public Object findByRequestMethod(List<Document> data, String mathodName) {
-        return data.stream().filter(it -> mathodName.equals(it.getString("requestMethod"))).findAny().map(it -> it.get("responseData")).orElse(null);
+    public List<Document> findListByRequestMethod(List<Document> data, String mathodName) {
+        return data.stream().filter(it -> mathodName.equals(it.getString("requestMethod"))).findAny().map(it -> it.get("responseData", List.class)).orElse(null);
     }
 
     public List<Document> postRequest(JSONArray payload, String sid, String userKey) {
@@ -113,30 +98,4 @@ public class RequestService {
     private String getBody(JSONArray payload) {
         return payload.toString().replace(" ", "");
     }
-//
-//    private fun convertJsonArray(data: JSONArray): List<Map<String, Any>> {
-//        val result = ArrayList<Map<String, Any>>()
-//        for (i in 0..(data.length() - 1)) {
-//            val obj = data.get(i)
-//            if (obj is JSONObject) {
-//                result.add(convertJsonObject(obj))
-//            } else if (obj is JSONArray) {
-//                result.addAll(convertJsonArray(obj))
-//            }
-//        }
-//        return result
-//    }
-//
-//    private fun convertJsonObject(data: JSONObject): Map<String, Any> {
-//        val result = HashMap<String, Any>()
-//        for (key in data.keySet()) {
-//            val obj = data.get(key as String)
-//            when (obj) {
-//                is JSONArray -> result.put(key, convertJsonArray(obj))
-//                is JSONObject -> result.put(key, convertJsonObject(obj))
-//                else -> result.put(key, obj)
-//            }
-//        }
-//        return result
-//    }
 }

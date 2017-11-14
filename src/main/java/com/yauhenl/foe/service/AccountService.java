@@ -17,9 +17,10 @@ public class AccountService {
     public Document getData(String sid, String userKey) {
         JSONArray payload = getPayload("getData", new String[]{}, "StartupService");
         List<Document> data = requestService.postRequest(payload, sid, userKey);
-        Document result = (Document) requestService.findByRequestMethod(data, "getData");
-        result.put("resources", ((Document) requestService.findByRequestMethod(data, "getPlayerResources")).get("resources"));
-        result.put("taverns", requestService.findByRequestMethod(data, "getOtherTavernStates"));
+        Document result = new Document();
+        result.put("user_data", requestService.findByRequestMethod(data, "getData").get("user_data"));
+        result.put("resources", requestService.findByRequestMethod(data, "getPlayerResources").get("resources"));
+        result.put("taverns", requestService.findListByRequestMethod(data, "getOtherTavernStates"));
         return result;
     }
 
